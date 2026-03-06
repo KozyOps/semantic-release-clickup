@@ -1,0 +1,51 @@
+{
+  "name": "semantic-release-clickup",
+  "version": "0.1.0",
+  "description": "semantic-release plugin to announce releases to a ClickUp chat channel",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "release": "semantic-release",
+    "prepublishOnly": "pnpm build"
+  },
+  "keywords": [
+    "semantic-release",
+    "clickup",
+    "chat",
+    "release",
+    "notification"
+  ],
+  "license": "MIT",
+  "packageManager": "pnpm@10.26.0",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "peerDependencies": {
+    "semantic-release": ">=20.0.0"
+  },
+  "dependencies": {
+    "@semantic-release/error": "^4.0.0"
+  },
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/github": "^11.0.6",
+    "@semantic-release/npm": "^12.0.2",
+    "@semantic-release/release-notes-generator": "^14.1.0",
+    "@types/node": "^22.0.0",
+    "semantic-release": "^24.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  }
+}
