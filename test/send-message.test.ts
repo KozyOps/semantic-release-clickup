@@ -69,12 +69,12 @@ describe("sendMessage", () => {
     });
 
     const body = JSON.parse(fetchSpy.mock.calls[0][1]!.body as string);
-    expect(body.post_title).toBe("My Title");
+    expect(body.post_data).toEqual({ title: "My Title" });
     expect(body.type).toBe("post");
     expect(body.content_format).toBe("text/md");
   });
 
-  it("omits post_title when type is message", async () => {
+  it("omits post_data when type is message", async () => {
     const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(
       new Response("{}", { status: 200 })
     );
@@ -89,7 +89,41 @@ describe("sendMessage", () => {
     });
 
     const body = JSON.parse(fetchSpy.mock.calls[0][1]!.body as string);
-    expect(body.post_title).toBeUndefined();
+    expect(body.post_data).toBeUndefined();
+  });
+
+  it("retries invalid post payloads as plain messages", async () => {
+    const fetchSpy = vi
+      .spyOn(globalThis, "fetch")
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({ status: 400, message: "Invalid Post Data" }),
+          { status: 400 }
+        )
+      )
+      .mockResolvedValueOnce(new Response("{}", { status: 200 }));
+
+    await sendMessage({
+      token: "pk_test",
+      workspaceId: "ws-1",
+      channelId: "ch-1",
+      content: "Body",
+      type: "post",
+      title: "My Title",
+      logger: mockLogger,
+    });
+
+    expect(fetchSpy).toHaveBeenCalledTimes(2);
+
+    const firstBody = JSON.parse(fetchSpy.mock.calls[0][1]!.body as string);
+    const secondBody = JSON.parse(fetchSpy.mock.calls[1][1]!.body as string);
+
+    expect(firstBody.type).toBe("post");
+    expect(secondBody.type).toBe("message");
+    expect(secondBody.post_data).toBeUndefined();
+    expect(mockLogger.warn).toHaveBeenCalledWith(
+      "ClickUp rejected the post payload. Retrying as a plain message."
+    );
   });
 
   it("throws EMESSAGEFAILED on non-2xx response", async () => {

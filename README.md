@@ -44,7 +44,7 @@ Set the `CLICKUP_TOKEN` environment variable to your ClickUp personal API token 
 |---|---|---|---|
 | `workspaceId` | `string` | `$CLICKUP_WORKSPACE_ID` | ClickUp workspace ID |
 | `channelId` | `string` | `$CLICKUP_CHANNEL_ID` | Chat channel ID to post to |
-| `messageType` | `"post" \| "message"` | `"post"` | Message type. `"post"` includes a title. |
+| `messageType` | `"post" \| "message"` | `"message"` | Message type. `"post"` includes a title, but ClickUp may reject post payloads without workspace-specific post metadata. |
 | `notifyOnSuccess` | `boolean` | `true` | Send a message on successful release |
 | `notifyOnFail` | `boolean` | `false` | Send a message on release failure |
 | `packageName` | `string` | `npm_package_name` | Package name used in messages |
@@ -122,6 +122,10 @@ CLICKUP_TOKEN=pk_... CLICKUP_WORKSPACE_ID=123 CLICKUP_CHANNEL_ID=abc pnpm exec s
   "messageType": "message"
 }]
 ```
+
+### Post messages
+
+ClickUp post payloads can require workspace-specific post metadata. If a `post` payload is rejected by ClickUp, this plugin automatically retries it as a plain `message` so releases do not fail on chat formatting alone.
 
 ## Lifecycle Hooks
 

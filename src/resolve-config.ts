@@ -15,7 +15,7 @@ export function resolveConfig(
     clickupToken: env.CLICKUP_TOKEN ?? "",
     workspaceId: pluginConfig.workspaceId ?? env.CLICKUP_WORKSPACE_ID ?? "",
     channelId: pluginConfig.channelId ?? env.CLICKUP_CHANNEL_ID ?? "",
-    messageType: pluginConfig.messageType ?? "post",
+    messageType: pluginConfig.messageType ?? "message",
     notifyOnSuccess: pluginConfig.notifyOnSuccess ?? true,
     notifyOnFail: pluginConfig.notifyOnFail ?? false,
     packageName:

@@ -14,6 +14,7 @@ function makeContext(overrides: Partial<Context> = {}): Context {
       CLICKUP_TOKEN: "pk_test",
       CLICKUP_WORKSPACE_ID: "ws-1",
       CLICKUP_CHANNEL_ID: "ch-1",
+      npm_package_name: "my-lib",
     },
     branch: { name: "main" },
     logger: { log: vi.fn(), error: vi.fn(), warn: vi.fn() },
@@ -38,7 +39,8 @@ describe("fail", () => {
     expect(sendMessageModule.sendMessage).toHaveBeenCalledWith(
       expect.objectContaining({
         content: expect.stringContaining("npm publish failed"),
-        type: "post",
+        type: "message",
+        title: undefined,
       })
     );
   });

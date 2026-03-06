@@ -14,6 +14,7 @@ function makeContext(overrides: Partial<Context> = {}): Context {
       CLICKUP_TOKEN: "pk_test",
       CLICKUP_WORKSPACE_ID: "ws-1",
       CLICKUP_CHANNEL_ID: "ch-1",
+      npm_package_name: "my-lib",
     },
     branch: { name: "main" },
     logger: { log: vi.fn(), error: vi.fn(), warn: vi.fn() },
@@ -41,9 +42,9 @@ describe("success", () => {
         token: "pk_test",
         workspaceId: "ws-1",
         channelId: "ch-1",
-        type: "post",
+        type: "message",
         content: expect.stringContaining("v2.0.0"),
-        title: expect.stringContaining("v2.0.0"),
+        title: undefined,
       })
     );
   });
