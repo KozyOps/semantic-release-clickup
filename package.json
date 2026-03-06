@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "description": "semantic-release plugin to announce releases to a ClickUp chat channel",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/KozyOps/semantic-release-clickup.git"
+  },
+  "homepage": "https://github.com/KozyOps/semantic-release-clickup#readme",
+  "bugs": {
+    "url": "https://github.com/KozyOps/semantic-release-clickup/issues"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -29,6 +37,9 @@
   ],
   "license": "MIT",
   "packageManager": "pnpm@10.26.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=22.0.0"
   },
