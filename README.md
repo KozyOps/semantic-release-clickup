@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-pnpm add -D semantic-release-clickup
+pnpm add -D @kozyops/semantic-release-clickup
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ Add the plugin to your semantic-release configuration:
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/npm",
-    ["semantic-release-clickup", {
+    ["@kozyops/semantic-release-clickup", {
       "workspaceId": "12345678",
       "channelId": "abc-def-123"
     }]
@@ -66,7 +66,7 @@ String templates support `${variable}` interpolation:
 For full control, pass a function instead of a string:
 
 ```js
-["semantic-release-clickup", {
+["@kozyops/semantic-release-clickup", {
   workspaceId: "12345678",
   channelId: "abc-def-123",
   successMessage: ({ version, commits, packageName }) =>
@@ -81,7 +81,7 @@ For full control, pass a function instead of a string:
 **Channel ID:** Use the ClickUp API to list channels:
 
 ```bash
-curl -H "Authorization: pk_YOUR_TOKEN" \
+curl -H "Authorization: $CLICKUP_TICKET_SKILL_TOKEN" \
   "https://api.clickup.com/api/v3/workspaces/YOUR_WORKSPACE_ID/chat/channels"
 ```
 
@@ -94,7 +94,7 @@ curl -H "Authorization: pk_YOUR_TOKEN" \
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
-    ["semantic-release-clickup", {}]
+    ["@kozyops/semantic-release-clickup", {}]
   ]
 }
 ```
@@ -106,7 +106,7 @@ CLICKUP_TOKEN=pk_... CLICKUP_WORKSPACE_ID=123 CLICKUP_CHANNEL_ID=abc pnpm exec s
 ### With failure notifications
 
 ```json
-["semantic-release-clickup", {
+["@kozyops/semantic-release-clickup", {
   "workspaceId": "12345678",
   "channelId": "abc-def-123",
   "notifyOnFail": true
@@ -116,7 +116,7 @@ CLICKUP_TOKEN=pk_... CLICKUP_WORKSPACE_ID=123 CLICKUP_CHANNEL_ID=abc pnpm exec s
 ### Plain message (no title)
 
 ```json
-["semantic-release-clickup", {
+["@kozyops/semantic-release-clickup", {
   "workspaceId": "12345678",
   "channelId": "abc-def-123",
   "messageType": "message"

@@ -1,6 +1,6 @@
 {
-  "name": "semantic-release-clickup",
-  "version": "0.1.0",
+  "name": "@kozyops/semantic-release-clickup",
+  "version": "0.1.1",
   "description": "semantic-release plugin to announce releases to a ClickUp chat channel",
   "type": "module",
   "repository": {
